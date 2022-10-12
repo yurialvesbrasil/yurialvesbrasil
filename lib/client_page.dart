@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stream_tutorial/client.dart';
 import 'package:flutter_stream_tutorial/client_bloc.dart';
 import 'package:flutter_stream_tutorial/client_events.dart';
@@ -49,33 +50,41 @@ class _ClientPageState extends State<ClientPage> {
       ]),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24),
-        child: StreamBuilder<ClientState>(
-            stream: bloc.stream,
-            builder: (context, AsyncSnapshot<ClientState> snapshot) {
-              final clientsList = snapshot.data?.clients ?? [];
-              return ListView.separated(
-                  itemBuilder: (context, index) => ListTile(
-                        leading: CircleAvatar(
-                          child: ClipRRect(
-                            // ignore: sort_child_properties_last
-                            child: Text(
-                              clientsList[index].name.substring(0, 1),
+        child: BlocBuilder<ClientBloc, ClientState>(
+            bloc: bloc,
+            builder: (context, state) {
+              if (state is ClientInitialState) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is ClientSuccessState) {
+                final clientsList = state.clients;
+                return ListView.separated(
+                    itemBuilder: (context, index) => ListTile(
+                          leading: CircleAvatar(
+                            child: ClipRRect(
+                              // ignore: sort_child_properties_last
+                              child: Text(
+                                clientsList[index].name.substring(0, 1),
+                              ),
+                              borderRadius: BorderRadius.circular(50),
                             ),
-                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          title: Text(clientsList[index].name,
+                              style: TextStyle(color: Colors.blue[900])),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.remove, color: Colors.red),
+                            onPressed: () {
+                              bloc.add(RemoveClientEvent(
+                                  client: clientsList[index]));
+                            },
                           ),
                         ),
-                        title: Text(clientsList[index].name,
-                            style: TextStyle(color: Colors.blue[900])),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.remove, color: Colors.red),
-                          onPressed: () {
-                            bloc.add(
-                                RemoveClientEvent(client: clientsList[index]));
-                          },
-                        ),
-                      ),
-                  separatorBuilder: (_, __) => const Divider(),
-                  itemCount: clientsList.length);
+                    separatorBuilder: (_, __) => const Divider(),
+                    itemCount: clientsList.length);
+              }
+
+              return const SizedBox();
             }),
       ),
     );

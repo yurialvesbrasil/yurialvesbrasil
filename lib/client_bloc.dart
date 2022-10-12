@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_stream_tutorial/client_state.dart';
 import 'client_events.dart';
 import 'client_repository.dart';
+import 'client_state.dart';
 
 class ClientBloc extends Bloc<ClientEvent, ClientState> {
   //Deveria ser passado por injeção de dependencias
