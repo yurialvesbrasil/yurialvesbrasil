@@ -1,0 +1,8 @@
+version: "Apple Swift version 5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)"
+options: "36f4a53e197ac4cf601c090ceea1a2b085b19ecd7525d32be1ee563903edc74f"
+build_start_time: [1665614245, 376984119]
+build_end_time: [1665614255, 292870044]
+inputs:
+  "/Users/yuribrasil/Projects/Flutter/flutter_bloc_tutorial/flutter_stream_tutorial/macos/Flutter/GeneratedPluginRegistrant.swift": [1665614206, 638555526]
+  "/Users/yuribrasil/Projects/Flutter/flutter_bloc_tutorial/flutter_stream_tutorial/macos/Runner/AppDelegate.swift": [1657744753, 0]
+  "/Users/yuribrasil/Projects/Flutter/flutter_bloc_tutorial/flutter_stream_tutorial/macos/Runner/MainFlutterWindow.swift": [1657744753, 0]
