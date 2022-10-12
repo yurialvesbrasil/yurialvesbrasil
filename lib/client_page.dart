@@ -22,12 +22,12 @@ class _ClientPageState extends State<ClientPage> {
     super.initState();
     bloc = ClientBloc();
     //Carrega lista inicial de clientes
-    bloc.inputClient.add(LoadClientEvent());
+    bloc.add(LoadClientEvent());
   }
 
   @override
   void dispose() {
-    bloc.inputClient.close();
+    bloc.close();
     super.dispose();
   }
 
@@ -43,8 +43,7 @@ class _ClientPageState extends State<ClientPage> {
       appBar: AppBar(title: const Text("Clientes"), actions: [
         IconButton(
             onPressed: () {
-              bloc.inputClient
-                  .add(AddClientEvent(client: Client(name: randomName())));
+              bloc.add(AddClientEvent(client: Client(name: randomName())));
             },
             icon: const Icon(Icons.person_add))
       ]),
@@ -70,7 +69,7 @@ class _ClientPageState extends State<ClientPage> {
                         trailing: IconButton(
                           icon: const Icon(Icons.remove, color: Colors.red),
                           onPressed: () {
-                            bloc.inputClient.add(
+                            bloc.add(
                                 RemoveClientEvent(client: clientsList[index]));
                           },
                         ),
